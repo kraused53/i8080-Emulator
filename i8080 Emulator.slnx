@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="i8080 Emulator.vcxproj" />
+  <Project Path="i8080 Emulator.vcxproj" Id="8515cf03-33da-4f2e-979e-682dbd5a65b5" />
 </Solution>

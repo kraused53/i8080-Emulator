@@ -86,12 +86,12 @@ void Engine::input( void ) {
 }
 
 void Engine::update( void ) {
-
+	// TODO
 }
 
 void Engine::render( void ) {
 	// Clear buffer
-	SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
+	SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0x00, 0xFF );
 	SDL_RenderClear( renderer );
 
 	// Push buffer to screen

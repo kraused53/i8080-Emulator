@@ -1,13 +1,18 @@
-#include "Engine.h"
+#include "i8080.h"
 
 int main( int argc, char** argv ) {
+	
+	i8080 cpu;
 
-	Engine engine;
-	if ( !engine.is_initialized() ) {
-		return 1;
+	return 0;
+
+	bool running = true;
+	while ( running ) {
+		cpu.step();
+		if ( cpu.error || cpu.halted ) {
+			running = false;
+		}
 	}
-
-	engine.run();
 
 	return 0;
 }
