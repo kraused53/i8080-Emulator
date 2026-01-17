@@ -32,7 +32,7 @@ public:
 	bool halted;
 	bool error;
 	bool interrupt_enabled;
-	int cycles;
+	unsigned long cycles;
 	uint8_t opcode;
 
 	// Emulator Enumerations
