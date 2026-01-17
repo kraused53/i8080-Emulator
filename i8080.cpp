@@ -536,7 +536,7 @@ void i8080::log( void ) {
 }
 
 bool i8080::load_rom( const char* path, uint16_t offset ) {
-	Logger::Log( std::format( "Opening file: {}", path ) );
+	//Logger::Log( std::format( "Opening file: {}", path ) );
 
 	// Open rom
 	FILE* fptr = nullptr;
@@ -568,7 +568,7 @@ bool i8080::load_rom( const char* path, uint16_t offset ) {
 
 	fclose( fptr );
 
-	Logger::Log( std::format( "File loaded into memory: {}", path ) );
+	//Logger::Log( std::format( "File loaded into memory: {}", path ) );
 	// No errors
 	return true;
 }

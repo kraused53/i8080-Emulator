@@ -22,6 +22,7 @@ void run_test( i8080* c, const char* filename, unsigned long cyc_expected ) {
 
 	printf( "*** TEST: %s\n", filename );
 
+	// Set PC to program start
 	c->PC = 0x0100;
 
 	// inject "out 0,a" at 0x0000 (signal to stop the test)
@@ -56,9 +57,9 @@ int main( int argc, char** argv ) {
 
 	i8080 cpu;
 	
-	//run_test( &cpu, ".\\roms\\TST8080.COM", 4924LU );
-	//run_test( &cpu, ".\\roms\\CPUTEST.COM", 255653383LU );
-	//run_test( &cpu, ".\\roms\\8080PRE.COM", 7817LU );
+	run_test( &cpu, ".\\roms\\TST8080.COM", 4924LU );
+	run_test( &cpu, ".\\roms\\CPUTEST.COM", 255653383LU );
+	run_test( &cpu, ".\\roms\\8080PRE.COM", 7817LU );
 	run_test( &cpu, ".\\roms\\8080EXM.COM", 23803381171LU );
 
 	return 0;
