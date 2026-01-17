@@ -31,6 +31,7 @@ public:
 	// Emulation values
 	bool halted;
 	bool error;
+	bool interrupt_enabled;
 	int cycles;
 	uint8_t opcode;
 
@@ -59,7 +60,11 @@ public:
 		CN_Z,       // If Zero
 		CN_NZ,      // If Not Zero
 		CN_C,       // If Carry
-		CN_NC       // If Not Carry
+		CN_NC,      // If Not Carry
+		CN_PO,      // If Parity Even
+		CN_PE,      // If Parity Odd
+		CN_P,       // If Positive
+		CN_N        // If Negative
 	};
 
 	// Define Flags
@@ -97,10 +102,14 @@ public:
 	void step( void );
 	void reset( void );
 	void log( void );
+	bool load_rom( const char* path, uint16_t offset );
 
 	/* Utility Functions */
 	uint8_t internal_add( uint8_t n1, uint8_t n2, bool cy );
 	bool will_carry( uint8_t bit_no, uint8_t a, uint8_t b, bool cy );
+	void push_to_stack( uint16_t data );
+	uint16_t pop_from_stack( void );
+
 	// Opcodes
 	void UNI( void );
 
@@ -130,7 +139,39 @@ public:
 	void MOV( void );
 	void HLT( void );
 
+	// 0x80 -> 0xBF
+	void ADD( void );
+	void ADC( void );
+	void SUB( void );
+	void SBC( void );
+	void ANA( void );
+	void XRA( void );
+	void ORA( void );
+	void CMP( void );
+
+	// 0xC0 -> 0xFF
+	void RET( void );
+	void POP( void );
 	void JMP( void );
+	void CALL( void );
+	void PUSH( void );
+	void ADI( void );
+	void ACI( void );
+	void SUI( void );
+	void SBI( void );
+	void ANI( void );
+	void XRI( void );
+	void ORI( void );
+	void CPI( void );
+	void RST( void );
+	void OUT( void );
+	void IN( void );
+	void XTHL( void );
+	void PCHL( void );
+	void XCHG( void );
+	void DI( void );
+	void EI( void );
+	void SPHL( void );
 
 	// Define instruction
 	struct INSTRUCTION {

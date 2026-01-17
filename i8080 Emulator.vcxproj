@@ -144,6 +144,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <None Include="roms\8080EXER.COM" />
+    <None Include="roms\8080EXM.COM" />
+    <None Include="roms\8080PRE.COM" />
+    <None Include="roms\CPUTEST.COM" />
+    <None Include="roms\TST8080.COM" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />

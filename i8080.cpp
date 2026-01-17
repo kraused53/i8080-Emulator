@@ -3,6 +3,8 @@
 #include <format>
 #include "Logger.h"
 
+#include <iostream>
+
 i8080::i8080( void ) {
 	reset();
 
@@ -158,148 +160,148 @@ i8080::i8080( void ) {
 		{ &i::MOV,    RG_A,    RG_A, CN_NONE },
 
 		// 0x80 -> 0x8F
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::ADD, RG_NONE,    RG_B, CN_NONE },
+		{ &i::ADD, RG_NONE,    RG_C, CN_NONE },
+		{ &i::ADD, RG_NONE,    RG_D, CN_NONE },
+		{ &i::ADD, RG_NONE,    RG_E, CN_NONE },
+		{ &i::ADD, RG_NONE,    RG_H, CN_NONE },
+		{ &i::ADD, RG_NONE,    RG_L, CN_NONE },
+		{ &i::ADD, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::ADD, RG_NONE,    RG_A, CN_NONE },
+		{ &i::ADC, RG_NONE,    RG_B, CN_NONE },
+		{ &i::ADC, RG_NONE,    RG_C, CN_NONE },
+		{ &i::ADC, RG_NONE,    RG_D, CN_NONE },
+		{ &i::ADC, RG_NONE,    RG_E, CN_NONE },
+		{ &i::ADC, RG_NONE,    RG_H, CN_NONE },
+		{ &i::ADC, RG_NONE,    RG_L, CN_NONE },
+		{ &i::ADC, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::ADC, RG_NONE,    RG_A, CN_NONE },
 
 		// 0x90 -> 0x9F
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::SUB, RG_NONE,    RG_B, CN_NONE },
+		{ &i::SUB, RG_NONE,    RG_C, CN_NONE },
+		{ &i::SUB, RG_NONE,    RG_D, CN_NONE },
+		{ &i::SUB, RG_NONE,    RG_E, CN_NONE },
+		{ &i::SUB, RG_NONE,    RG_H, CN_NONE },
+		{ &i::SUB, RG_NONE,    RG_L, CN_NONE },
+		{ &i::SUB, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::SUB, RG_NONE,    RG_A, CN_NONE },
+		{ &i::SBC, RG_NONE,    RG_B, CN_NONE },
+		{ &i::SBC, RG_NONE,    RG_C, CN_NONE },
+		{ &i::SBC, RG_NONE,    RG_D, CN_NONE },
+		{ &i::SBC, RG_NONE,    RG_E, CN_NONE },
+		{ &i::SBC, RG_NONE,    RG_H, CN_NONE },
+		{ &i::SBC, RG_NONE,    RG_L, CN_NONE },
+		{ &i::SBC, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::SBC, RG_NONE,    RG_A, CN_NONE },
 
 		// 0xA0 -> 0xAF
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::ANA, RG_NONE,    RG_B, CN_NONE },
+		{ &i::ANA, RG_NONE,    RG_C, CN_NONE },
+		{ &i::ANA, RG_NONE,    RG_D, CN_NONE },
+		{ &i::ANA, RG_NONE,    RG_E, CN_NONE },
+		{ &i::ANA, RG_NONE,    RG_H, CN_NONE },
+		{ &i::ANA, RG_NONE,    RG_L, CN_NONE },
+		{ &i::ANA, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::ANA, RG_NONE,    RG_A, CN_NONE },
+		{ &i::XRA, RG_NONE,    RG_B, CN_NONE },
+		{ &i::XRA, RG_NONE,    RG_C, CN_NONE },
+		{ &i::XRA, RG_NONE,    RG_D, CN_NONE },
+		{ &i::XRA, RG_NONE,    RG_E, CN_NONE },
+		{ &i::XRA, RG_NONE,    RG_H, CN_NONE },
+		{ &i::XRA, RG_NONE,    RG_L, CN_NONE },
+		{ &i::XRA, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::XRA, RG_NONE,    RG_A, CN_NONE },
 
 		// 0xB0 -> 0xBF
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::ORA, RG_NONE,    RG_B, CN_NONE },
+		{ &i::ORA, RG_NONE,    RG_C, CN_NONE },
+		{ &i::ORA, RG_NONE,    RG_D, CN_NONE },
+		{ &i::ORA, RG_NONE,    RG_E, CN_NONE },
+		{ &i::ORA, RG_NONE,    RG_H, CN_NONE },
+		{ &i::ORA, RG_NONE,    RG_L, CN_NONE },
+		{ &i::ORA, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::ORA, RG_NONE,    RG_A, CN_NONE },
+		{ &i::CMP, RG_NONE,    RG_B, CN_NONE },
+		{ &i::CMP, RG_NONE,    RG_C, CN_NONE },
+		{ &i::CMP, RG_NONE,    RG_D, CN_NONE },
+		{ &i::CMP, RG_NONE,    RG_E, CN_NONE },
+		{ &i::CMP, RG_NONE,    RG_H, CN_NONE },
+		{ &i::CMP, RG_NONE,    RG_L, CN_NONE },
+		{ &i::CMP, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::CMP, RG_NONE,    RG_A, CN_NONE },
 
 		// 0xC0 -> 0xCF
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RET, RG_NONE, RG_NONE,   CN_NZ },
+		{ &i::POP,   RP_BC, RG_NONE, CN_NONE },
+		{ &i::JMP, RG_NONE, RG_NONE,   CN_NZ },
 		{ &i::JMP, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::CALL,RG_NONE, RG_NONE,   CN_NZ },
+		{ &i::PUSH,RG_NONE,   RP_BC, CN_NONE },
+		{ &i::ADI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RST, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RET, RG_NONE, RG_NONE,    CN_Z },
+		{ &i::RET, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::JMP, RG_NONE, RG_NONE,    CN_Z },
 		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::CALL,RG_NONE, RG_NONE,    CN_Z },
+		{ &i::CALL,RG_NONE, RG_NONE, CN_NONE },
+		{ &i::ACI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RST, RG_NONE, RG_NONE, CN_NONE },
 
 		// 0xD0 -> 0xDF
+		{ &i::RET, RG_NONE, RG_NONE,   CN_NC },
+		{ &i::POP,   RP_DE, RG_NONE, CN_NONE },
+		{ &i::JMP, RG_NONE, RG_NONE,   CN_NC },
+		{ &i::OUT, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::CALL,RG_NONE, RG_NONE,   CN_NC },
+		{ &i::PUSH,RG_NONE,   RP_DE, CN_NONE },
+		{ &i::SUI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RST, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RET, RG_NONE, RG_NONE,    CN_C },
 		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::JMP, RG_NONE, RG_NONE,    CN_C },
+		{ &i::IN,  RG_NONE, RG_NONE, CN_NONE },
+		{ &i::CALL,RG_NONE, RG_NONE,    CN_C },
 		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::SBI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RST, RG_NONE, RG_NONE, CN_NONE },
 
 		// 0xE0 -> 0xEF
+		{ &i::RET, RG_NONE, RG_NONE,   CN_PO },
+		{ &i::POP,   RP_HL, RG_NONE, CN_NONE },
+		{ &i::JMP, RG_NONE, RG_NONE,   CN_PO },
+		{ &i::XTHL,RG_NONE, RG_NONE, CN_NONE },
+		{ &i::CALL,RG_NONE, RG_NONE,   CN_PO },
+		{ &i::PUSH,RG_NONE,   RP_HL, CN_NONE },
+		{ &i::ANI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RST, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RET, RG_NONE, RG_NONE,   CN_PE },
+		{ &i::PCHL,RG_NONE, RG_NONE, CN_NONE },
+		{ &i::JMP, RG_NONE, RG_NONE,   CN_PE },
+		{ &i::XCHG,RG_NONE, RG_NONE, CN_NONE },
+		{ &i::CALL,RG_NONE, RG_NONE,   CN_PE },
 		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::XRI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RST, RG_NONE, RG_NONE, CN_NONE },
 
 		// 0xF0 -> 0xFF
+		{ &i::RET, RG_NONE, RG_NONE,    CN_P },
+		{ &i::POP,   RP_AF, RG_NONE, CN_NONE },
+		{ &i::JMP, RG_NONE, RG_NONE,    CN_P },
+		{ &i::DI,  RG_NONE, RG_NONE, CN_NONE },
+		{ &i::CALL,RG_NONE, RG_NONE,    CN_P },
+		{ &i::PUSH,RG_NONE,   RP_AF, CN_NONE },
+		{ &i::ORI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RST, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RET, RG_NONE, RG_NONE,    CN_N },
+		{ &i::SPHL,RG_NONE, RG_NONE, CN_NONE },
+		{ &i::JMP, RG_NONE, RG_NONE,    CN_N },
+		{ &i::EI,  RG_NONE, RG_NONE, CN_NONE },
+		{ &i::CALL,RG_NONE, RG_NONE,    CN_N },
 		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
-		{ &i::UNI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::CPI, RG_NONE, RG_NONE, CN_NONE },
+		{ &i::RST, RG_NONE, RG_NONE, CN_NONE },
 
 	};
 	
@@ -355,6 +357,10 @@ bool i8080::parse_cond( void ) {
 		case CN_NZ:   ret = !get_flag( F_Z ); break;
 		case CN_C:    ret =  get_flag( F_C ); break;
 		case CN_NC:   ret = !get_flag( F_C ); break;
+		case CN_PO:   ret =  get_flag( F_P ); break;
+		case CN_PE:   ret = !get_flag( F_P ); break;
+		case CN_P:    ret =  get_flag( F_S ); break;
+		case CN_N:    ret = !get_flag( F_S ); break;
 		default: UNI(); break;
 	}
 
@@ -507,6 +513,7 @@ void i8080::reset( void ) {
 
 	error = false;
 	halted = false;
+	interrupt_enabled = false;
 	cycles = 0;
 	opcode = 0x00;
 }
@@ -527,6 +534,44 @@ void i8080::log( void ) {
 			error  ? "Y" : "N"
 		)
 	);
+}
+
+bool i8080::load_rom( const char* path, uint16_t offset ) {
+	Logger::Log( std::format( "Opening file: {}", path ) );
+
+	// Open rom
+	FILE* fptr = nullptr;
+	fopen_s( &fptr, path, "rb" );
+	if ( !fptr ) {
+		Logger::Err( "Could not open file" );
+		return false;
+	}
+
+	// file size check:
+	fseek( fptr, 0, SEEK_END );
+	size_t file_size = ftell( fptr );
+	rewind( fptr );
+
+	if ( file_size + offset >= 0xFFFF ) {
+		fclose( fptr );
+		Logger::Err( "Overflow loading ROM. File too large" );
+		return false;
+	}
+
+	// Load rom into memory
+	// copying the bytes in memory:
+	size_t result = fread( &memory[ offset ], sizeof( uint8_t ), file_size, fptr );
+	if ( result != file_size ) {
+		fclose( fptr );
+		Logger::Err( std::format( "Error loading file into memory: {}", path ));
+		return 1;
+	}
+
+	fclose( fptr );
+
+	Logger::Log( std::format( "File loaded into memory: {}", path ) );
+	// No errors
+	return true;
 }
 
 /* Utility Functions */
@@ -560,6 +605,25 @@ bool i8080::will_carry( uint8_t bit_no, uint8_t a, uint8_t b, bool cy ) {
 	}
 
 	return false;
+}
+
+void i8080::push_to_stack( uint16_t data ) {
+	SP -= 2;
+
+	uint8_t h = data >> 8;
+	uint8_t l = data & 0xFF;
+
+	write_byte( SP + 0, l );
+	write_byte( SP + 1, h );
+}
+
+uint16_t i8080::pop_from_stack( void ) {
+	uint8_t h = read_byte( SP + 1 );
+	uint8_t l = read_byte( SP + 0 );
+
+	SP += 2;
+
+	return ( h << 8 ) | l;
 }
 
 /* Opcodes */
@@ -746,7 +810,7 @@ void i8080::STC( void ) {
 }
 
 void i8080::DAD( void ) {
-	uint16_t to_add = get_register( GET_SRC );
+	uint16_t to_add = get_register( GET_SRC ) & 0xFF ;
 	uint32_t res = get_register( GET_DST ) + to_add;
 	
 	set_register( GET_DST, res & 0xFFFF );
@@ -833,8 +897,176 @@ void i8080::HLT( void ) {
 	cycles = 7;
 }
 
-void i8080::JMP( void ) {
+// 0x80 -> 0xBF
+void i8080::ADD( void ) {
+	uint8_t to_add = 0x00;
 
+	if ( opcode == 0x86 ) {
+		to_add = read_byte( get_register( RP_HL ) );
+		cycles = 7;
+	} else {
+		to_add = get_register( GET_SRC ) & 0xFF ;
+		cycles = 4;
+	}
+
+	A = internal_add( A, to_add, false );
+
+}
+
+void i8080::ADC( void ) {
+	uint8_t to_add = 0x00;
+
+	if ( opcode == 0x8E ) {
+		to_add = read_byte( get_register( RP_HL ) );
+		cycles = 7;
+	} else {
+		to_add = get_register( GET_SRC ) & 0xFF ;
+		cycles = 4;
+	}
+
+	A = internal_add( A, to_add, get_flag( F_C ) );
+
+}
+
+void i8080::SUB( void ) {
+	uint8_t to_add = 0x00;
+
+	if ( opcode == 0x96 ) {
+		to_add = read_byte( get_register( RP_HL ) );
+		cycles = 7;
+	} else {
+		to_add = get_register( GET_SRC ) & 0xFF ;
+		cycles = 4;
+	}
+
+	A = internal_add( A, ~( to_add ), true);
+	set_flag( F_C, !get_flag( F_C ) );	// Flip carry flag for SUB operations
+}
+
+void i8080::SBC( void ) {
+	uint8_t to_add = 0x00;
+
+	if ( opcode == 0x9E ) {
+		to_add = read_byte( get_register( RP_HL ) );
+		cycles = 7;
+	} else {
+		to_add = get_register( GET_SRC ) & 0xFF ;
+		cycles = 4;
+	}
+
+	A = internal_add( A, ~( to_add ), !get_flag( F_C ) );
+	set_flag( F_C, !get_flag( F_C ) );	// Flip carry flag for SUB operations
+}
+
+void i8080::ANA( void ) {
+	uint8_t op = 0x00;
+
+	if ( opcode == 0xA6 ) {
+		op = read_byte( get_register( RP_HL ) );
+		cycles = 7;
+	} else {
+		op = get_register( GET_SRC ) & 0xFF ;
+		cycles = 4;
+	}
+
+	A = A & op;
+
+	set_all_flags(
+		A & 0x80,
+		A == 0x00,
+		false,
+		parity( A ),
+		false
+	);
+
+}
+
+void i8080::XRA( void ) {
+	uint8_t op = 0x00;
+
+	if ( opcode == 0xA6 ) {
+		op = read_byte( get_register( RP_HL ) );
+		cycles = 7;
+	} else {
+		op = get_register( GET_SRC ) & 0xFF ;
+		cycles = 4;
+	}
+
+	A = A ^ op;
+
+	set_all_flags(
+		A & 0x80,
+		A == 0x00,
+		false,
+		parity( A ),
+		false
+	);
+
+}
+
+void i8080::ORA( void ) {
+	uint8_t op = 0x00;
+
+	if ( opcode == 0xA6 ) {
+		op = read_byte( get_register( RP_HL ) );
+		cycles = 7;
+	} else {
+		op = get_register( GET_SRC ) & 0xFF ;
+		cycles = 4;
+	}
+
+	A = A | op;
+
+	set_all_flags(
+		A & 0x80,
+		A == 0x00,
+		false,
+		parity( A ),
+		false
+	);
+
+}
+
+void i8080::CMP( void ) {
+	uint8_t op = 0x00;
+	uint16_t res = 0x00;
+
+	if ( opcode == 0xA6 ) {
+		op = read_byte( get_register( RP_HL ) );
+		cycles = 7;
+	} else {
+		op = get_register( GET_SRC ) & 0xFF ;
+		cycles = 4;
+	}
+
+	res = A - op;
+
+	set_all_flags(
+		res & 0x80,
+		( res & 0xFF ) == 0x00,
+		( ~( A ^ res ^ op ) & 0x10 ),
+		parity( res & 0xFF ),
+		res > 0xFF
+	);
+
+}
+
+// 0xC0 -> 0xFF
+void i8080::RET( void ) {
+	if ( parse_cond() ) {
+		PC = pop_from_stack();
+		cycles = 11;
+	} else {
+		cycles = 5;
+	}
+}
+
+void i8080::POP( void ) {
+	set_register( GET_DST, pop_from_stack() );
+	cycles = 10;
+}
+
+void i8080::JMP( void ) {
 	if ( parse_cond() ) {
 		PC = fetch_word();
 	} else {
@@ -842,4 +1074,192 @@ void i8080::JMP( void ) {
 	}
 
 	cycles = 10;
+}
+
+void i8080::CALL( void ) {
+	if ( parse_cond() ) {
+		push_to_stack( PC + 2 );
+		SP -= 2;
+		PC = read_word( PC );
+		cycles = 17;
+	} else {
+		PC += 2;
+		cycles = 11;
+	}
+}
+
+void i8080::PUSH( void ) {
+	push_to_stack( GET_SRC );
+	cycles = 11;
+}
+
+void i8080::ADI( void ) {
+	uint8_t to_add = fetch_byte();
+	cycles = 7;
+	A = internal_add( A, to_add, false );
+}
+
+void i8080::ACI( void ) {
+	uint8_t to_add = fetch_byte();
+	cycles = 7;
+	A = internal_add( A, to_add, get_flag( F_C ) );
+}
+
+void i8080::SUI( void ) {
+	uint8_t to_add = fetch_byte();
+	cycles = 7;
+	A = internal_add( A, ~( to_add ), true );
+	set_flag( F_C, !get_flag( F_C ) );	// Flip carry flag for SUB operations
+}
+
+void i8080::SBI( void ) {
+	uint8_t to_add = fetch_byte();
+	cycles = 7;
+	A = internal_add( A, ~( to_add ), !get_flag( F_C ) );
+	set_flag( F_C, !get_flag( F_C ) );	// Flip carry flag for SUB operations
+}
+
+void i8080::ANI( void ) {
+	uint8_t op = fetch_byte();
+	cycles = 7;
+
+	A = A & op;
+
+	set_all_flags(
+		A & 0x80,
+		A == 0x00,
+		false,
+		parity( A ),
+		false
+	);
+
+}
+
+void i8080::XRI( void ) {
+	uint8_t op = fetch_byte();
+	cycles = 7;
+
+	A = A ^ op;
+
+	set_all_flags(
+		A & 0x80,
+		A == 0x00,
+		false,
+		parity( A ),
+		false
+	);
+
+}
+
+void i8080::ORI( void ) {
+	uint8_t op = fetch_byte();
+	cycles = 7;
+
+	A = A | op;
+
+	set_all_flags(
+		A & 0x80,
+		A == 0x00,
+		false,
+		parity( A ),
+		false
+	);
+
+}
+
+void i8080::CPI( void ) {
+	uint8_t op = fetch_byte();
+	uint16_t res = 0x00;
+	cycles = 7;
+
+	res = A - op;
+
+	set_all_flags(
+		res & 0x80,
+		( res & 0xFF ) == 0x00,
+		( ~( A ^ res ^ op ) & 0x10 ),
+		parity( res & 0xFF ),
+		res > 0xFF
+	);
+}
+
+void i8080::RST( void ) {
+	switch ( opcode ) {
+		case 0xC7: push_to_stack( PC ); PC = 0x0000; break; // RST 0 -> $0000
+		case 0xCF: push_to_stack( PC ); PC = 0x0008; break; // RST 1 -> $0008
+		case 0xD7: push_to_stack( PC ); PC = 0x0010; break; // RST 2 -> $0010
+		case 0xDF: push_to_stack( PC ); PC = 0x0018; break; // RST 3 -> $0018
+		case 0xE7: push_to_stack( PC ); PC = 0x0020; break; // RST 4 -> $0020
+		case 0xEF: push_to_stack( PC ); PC = 0x0028; break; // RST 5 -> $0028
+		case 0xF7: push_to_stack( PC ); PC = 0x0030; break; // RST 6 -> $0030
+		case 0xFF: push_to_stack( PC ); PC = 0x0038; break; // RST 7 -> $0038
+		default: UNI(); break;
+	}
+	cycles = 11;
+}
+
+void i8080::OUT( void ) {
+	uint8_t port = fetch_byte();
+
+	if ( port == 0x00 ) {
+		Logger::Log( "OUT, port 0 called: program halted!" );
+		halted = true;
+	} else if ( port == 1 ) {
+		if ( C == 2 ) {
+			printf( "%c", E );
+		} else if ( C == 9 ) {
+			uint16_t addr = ( D << 8 ) | E;
+			do {
+				printf( "%c", read_byte( addr ) );
+				addr++;
+			} while ( read_byte( addr ) != '$' );
+		}
+	}
+
+	cycles = 10;
+}
+
+void i8080::IN( void ) {
+	// TODO
+
+	PC += 1;
+	cycles = 10;
+}
+
+void i8080::XTHL( void ) {
+	uint8_t old_l = read_byte( SP );
+	uint8_t old_h = read_byte( SP + 1 );
+
+	write_byte( SP, get_register( RG_L ) & 0xFF );
+	write_byte( SP + 1, get_register( RG_H ) & 0xFF );
+
+	set_register( RP_HL, old_h, old_l );
+	cycles = 18;
+}
+
+void i8080::PCHL( void ) {
+	PC = get_register( RP_HL );
+	cycles = 5;
+}
+
+void i8080::XCHG( void ) {
+	uint16_t old_hl = get_register( RP_HL );
+	set_register( RP_HL, get_register( RP_DE ) );
+	set_register( RP_DE, old_hl );
+	cycles = 5;
+}
+
+void i8080::DI( void ) {
+	interrupt_enabled = false;
+	cycles = 4;
+}
+
+void i8080::EI( void ) {
+	interrupt_enabled = true;
+	cycles = 4;
+}
+
+void i8080::SPHL( void ) {
+	set_register( RP_SP, get_register( RP_HL ) );
+	cycles = 5;
 }
