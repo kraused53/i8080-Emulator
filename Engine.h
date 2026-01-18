@@ -1,7 +1,10 @@
 #pragma once
 
+#include "i8080.h"
+
 // SDL Settings
 #include <SDL.h>
+
 const int WINDOW_W = 224;
 const int WINDOW_H = 256;
 
@@ -11,9 +14,12 @@ const int MSEC_PER_FRAME = ( int ) 1000 / TARGET_FPS;
 
 class Engine {
 private:
-	// SDL Settings
+	// SDL
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+	SDL_Texture* texture;
+
+	uint8_t screen_buffer[ 256 ][ 224 ][ 4 ];
 
 	// Emulation Variables
 	bool initialized;
@@ -24,6 +30,9 @@ public:
 	// Constructors
 	Engine( void );
 	~Engine( void );
+
+	// CPU
+	i8080 cpu;
 
 	// Emulation Steps
 	void setup( void );
