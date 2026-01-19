@@ -1,6 +1,11 @@
 # A Simple i8080 Emulator
 ---
 
+![Screen Recording Of Space Invaders Title Screen](./images/TitleScreenMovie.mp4){ width="800" height="600" style="display: block; margin: 0 auto" }
+
+
+
+
 This is an emulator I am writting in C++ to emulate the Intel 8080 CPU. 
 This project is as an update for an older 8080 emulator I wrote before I was a CS student.
 My intention is to build an emulator that will run the ROM files for the original Space Invaders Arcade Cabinet.
@@ -43,29 +48,59 @@ c->memory[ 0x0007 ] = 0xC9;
 
 ### Output from TST8080.COM ROM File
 
-![Screenshot of ROM: TST8080 Passing](./images/TST8080-PASS.png)
+![Screenshot of ROM: TST8080 Passing](./images/TST8080-PASS.png){ width="500" height="200" style="display: block; margin: 0 auto" }
 
 </br>
 
 ### Output from CPUTEST.COM ROM File
 
-![Screenshot of ROM: CPUTEST Passing](./images/CPUTEST-PASS.png)
+![Screenshot of ROM: CPUTEST Passing](./images/CPUTEST-PASS.png){ width="500" height="200" style="display: block; margin: 0 auto" }
 
 </br>
 
 ### Output from 8080PRE.COM ROM File
 
-![Screenshot of ROM: 8080PRE Passing](./images/8080PRE-PASS.png)
+![Screenshot of ROM: 8080PRE Passing](./images/8080PRE-PASS.png){ width="500" height="75" style="display: block; margin: 0 auto" }
 
 
 </br>
 
 ### Output from 8080EXM.COM ROM File
 
-![Screenshot of ROM: 8080EXM Passing](./images/8080EXM-PASS.png)
+![Screenshot of ROM: 8080EXM Passing](./images/8080EXM-PASS.png){ width="800" height="600" style="display: block; margin: 0 auto" }
 
 </br>
 
 # Space Invaders!
 
-### I will update this section when I get Space Invaders running
+The 8080 CPU Emulator can now run Space Invaders!
+
+## Screen Shots
+
+![Screenshot of Space Invaders](./images/SI_Screenshot_1.png){ width="448" height="512" style="display: block; margin: 0 auto" }
+
+</br>
+
+![Screenshot of Space Invaders](./images/SI_Screenshot_2.png){ width="448" height="512" style="display: block; margin: 0 auto" }
+
+</br>
+
+![Screenshot of Space Invaders](./images/SI_Screenshot_3.png){ width="448" height="512" style="display: block; margin: 0 auto" }
+
+</br>
+
+![Screenshot of Space Invaders](./images/SI_Screenshot_4.png){ width="448" height="512" style="display: block; margin: 0 auto" }
+
+</br>
+
+## Control Scheme
+
+| Key   | Action         |
+|-------|----------------|
+| LEFT  | Joystick Left  |
+| RIGHT | Joystick Right |
+| SPACE | Joystick Right |
+| C     | Joystick Right |
+| 1     | Start 1 Player |
+| 2     | Start 2 Player |
+

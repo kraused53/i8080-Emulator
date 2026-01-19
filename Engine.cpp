@@ -118,18 +118,14 @@ void Engine::handle_keydown( SDL_Event* e ) {
 		case SDLK_c: cpu.INP1 |= COIN; break;
 		case SDLK_1: cpu.INP1 |= P1_START; break;
 		case SDLK_2: cpu.INP1 |= P2_START; break;
-		case SDLK_w:
-		case SDLK_UP:
 		case SDLK_SPACE:
 			cpu.INP1 |= P1_SHOOT;
 			cpu.INP2 |= P2_SHOOT;
 			break;
-		case SDLK_a:
 		case SDLK_LEFT:
 			cpu.INP1 |= P1_LEFT; 
 			cpu.INP2 |= P2_LEFT; 
 			break;
-		case SDLK_d:
 		case SDLK_RIGHT:
 			cpu.INP1 |= P1_RIGHT; 
 			cpu.INP2 |= P2_RIGHT; 
@@ -143,18 +139,14 @@ void Engine::handle_keyup( SDL_Event* e ) {
 		case SDLK_c: cpu.INP1 &= ~COIN; break;
 		case SDLK_1: cpu.INP1 &= ~P1_START; break;
 		case SDLK_2: cpu.INP1 &= ~P2_START; break;
-		case SDLK_w: 
-		case SDLK_UP: 
 		case SDLK_SPACE: 
 			cpu.INP1 &= ~P1_SHOOT; 
 			cpu.INP2 &= ~P2_SHOOT; 
 			break;
-		case SDLK_a:
 		case SDLK_LEFT:
 			cpu.INP1 &= ~P1_LEFT; 
 			cpu.INP2 &= ~P2_LEFT; 
 			break;
-		case SDLK_d: 
 		case SDLK_RIGHT: 
 			cpu.INP1 &= ~P1_RIGHT; 
 			cpu.INP2 &= ~P2_RIGHT; 
