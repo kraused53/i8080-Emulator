@@ -7,9 +7,10 @@
 
 const int WINDOW_W = 224;
 const int WINDOW_H = 256;
+const int WINDOW_SCALE = 4;
 
 // Timing Settings
-const int TARGET_FPS = 60;
+const int TARGET_FPS = 50;
 const int MSEC_PER_FRAME = ( int ) 1000 / TARGET_FPS;
 
 class Engine {

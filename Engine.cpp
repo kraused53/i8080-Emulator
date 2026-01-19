@@ -42,7 +42,7 @@ Engine::Engine( void ) {
 	}
 
 	// Initialize SDL Window
-	window = SDL_CreateWindow( "Space Invaders!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_W, WINDOW_H, SDL_WINDOW_SHOWN );
+	window = SDL_CreateWindow( "Space Invaders!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_SCALE * WINDOW_W, WINDOW_SCALE * WINDOW_H, SDL_WINDOW_SHOWN );
 	if ( !window ) {
 		Logger::Err( std::format( "Could not initialize SDL window: {}", SDL_GetError() ) );
 		return;
@@ -222,7 +222,7 @@ void Engine::render( void ) {
 			uint8_t r = 0, g = 0, b = 0;
 
 			// colour handling:
-			if ( false && is_pixel_lit ) {
+			if ( true && is_pixel_lit ) {
 				r = 255;
 				g = 255;
 				b = 255;
