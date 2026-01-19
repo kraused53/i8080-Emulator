@@ -3,11 +3,11 @@
 
 <img src="./images/TitleScreenMovie.gif" width="448">
 
-This is an emulator I am writting in C++ to emulate the Intel 8080 CPU. 
+This is an emulator I comstructed, using C++, to emulate the Intel 8080 CPU. 
 This project is as an update for an older 8080 emulator I wrote before I was a CS student.
 My intention is to build an emulator that will run the ROM files for the original Space Invaders Arcade Cabinet.
 
-To run this project, you will need a coy of the SDL2 library. I will use this library to render the game to  a window and handle keyboard events.
+To run this project, you will need a coy of the SDL2 library. I use this library to render the game to  a window and handle keyboard events.
 I am compiling this using the C++20 standard to gain access to the <format.h> library.
 
 ---
@@ -26,6 +26,8 @@ Because I am not running an instance of the CP/M operating system, I had to inje
 </br>
 
 ### Test ROM Setup - This code is added just after the ROM file is loaded into memory
+
+My i8080 CPU passes all four of these tests!
 
 ```
 // Set PC to program start
