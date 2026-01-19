@@ -1,7 +1,6 @@
 # A Simple i8080 Emulator
 ---
 
-![Screen Recording Of Space Invaders Title Screen](./images/TitleScreenMovie.mp4){ width="800" height="600" style="display: block; margin: 0 auto" }
 
 
 This is an emulator I am writting in C++ to emulate the Intel 8080 CPU. 
@@ -76,19 +75,19 @@ The 8080 CPU Emulator can now run Space Invaders!
 
 ## Screen Shots
 
-![Screenshot of Space Invaders](./images/SI_Screenshot_1.png){ width="448" height="512" style="display: block; margin: 0 auto" }
+<img src="./images/SI_Screenshot_1.png" width="448">
 
 </br>
 
-![Screenshot of Space Invaders](./images/SI_Screenshot_2.png){ width="448" height="512" style="display: block; margin: 0 auto" }
+<img src="./images/SI_Screenshot_2.png" width="448">
 
 </br>
 
-![Screenshot of Space Invaders](./images/SI_Screenshot_3.png){ width="448" height="512" style="display: block; margin: 0 auto" }
+<img src="./images/SI_Screenshot_3.png" width="448">
 
 </br>
 
-![Screenshot of Space Invaders](./images/SI_Screenshot_4.png){ width="448" height="512" style="display: block; margin: 0 auto" }
+<img src="./images/SI_Screenshot_4.png" width="448">
 
 </br>
 
