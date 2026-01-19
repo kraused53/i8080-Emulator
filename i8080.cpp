@@ -497,6 +497,24 @@ void i8080::step( void ) {
 	( this->*op_codes[ opcode ].operate )( );
 }
 
+void i8080::interrupt( INTERRUPT_ID id ) {
+	// Only execute if interrupts are enabled
+	if ( ! interrupt_enabled ) {
+		return;
+	}
+
+	// Disable interrupts
+	interrupt_enabled = false;
+
+	switch ( id ) {
+		// For MSI, execute RST 1
+		case MSI: opcode = 0xCF; ( this->*op_codes[ opcode ].operate )( ); break;
+		// For MSI, execute RST 2
+		case ESI: opcode = 0xD7; ( this->*op_codes[ opcode ].operate )( ); break;
+		default: break;
+	}
+}
+
 // Reset system variables to known values
 void i8080::reset( void ) {
 	A = 0x00;
@@ -516,6 +534,16 @@ void i8080::reset( void ) {
 	interrupt_enabled = false;
 	cycles = 0;
 	opcode = 0x00;
+
+	INP1 = 0x00;
+	INP2 = 0x00;
+	SHIFT_LO = 0x00;
+	SHIFT_HI = 0x00;
+	SHIFT_AMNT = 0x00;
+	SOUND1 = 0x00;
+	SHIFT_DATA = 0x00;
+	SOUND2 = 0x00;
+	WATCHDOG = 0x00;
 }
 
 void i8080::log( void ) {
@@ -623,7 +651,7 @@ uint16_t i8080::pop_from_stack( void ) {
 
 /* Opcodes */
 void i8080::UNI( void ) {
-	cycles += 1;
+	cycles = 1;
 	halted = true;
 	error = true;
 	Logger::Err( std::format( "Unknown Opcode {:02X} at address {:04X}", opcode, PC - 1 ));
@@ -631,7 +659,7 @@ void i8080::UNI( void ) {
 
 // 0x00 -> 0x3F
 void i8080::NOP( void ) {
-	cycles += 4;
+	cycles = 4;
 }
 
 void i8080::LXI( void ) {
@@ -646,47 +674,47 @@ void i8080::LXI( void ) {
 		default: UNI(); break;
 	}
 
-	cycles += 10;
+	cycles = 10;
 }
 
 void i8080::STAX( void ) {
 	if ( opcode == 0x32 ) {
 		write_byte( fetch_word(), A );
-		cycles += 13;
+		cycles = 13;
 	} else {
 		write_byte( get_register( GET_SRC ), A );
-		cycles += 7;
+		cycles = 7;
 	}
 }
 
 void i8080::LDAX( void ) {
 	if ( opcode == 0x3A ) {
 		set_register( RG_A, read_byte( fetch_word() ) );
-		cycles += 13;
+		cycles = 13;
 	} else {
 		set_register( RG_A, read_byte( get_register( GET_SRC ) ) );
-		cycles += 7;
+		cycles = 7;
 	}
 }
 
 void i8080::SHLD( void ) {
 	write_word( fetch_word(), get_register( RP_HL ) );
-	cycles += 16;
+	cycles = 16;
 }
 
 void i8080::LHLD( void ) {
 	set_register( RP_HL, read_word( fetch_word() ) );
-	cycles += 16;
+	cycles = 16;
 }
 
 void i8080::INX( void ) {
 	set_register( GET_DST, get_register( GET_DST ) + 1 );
-	cycles += 5;
+	cycles = 5;
 }
 
 void i8080::DCX( void ) {
 	set_register( GET_DST, get_register( GET_DST ) - 1 );
-	cycles += 5;
+	cycles = 5;
 }
 
 void i8080::INR( void ) {
@@ -697,11 +725,11 @@ void i8080::INR( void ) {
 			read_byte( get_register( RP_HL ) ) + 1
 		);
 		check = read_byte( get_register( RP_HL ) );
-		cycles += 10;
+		cycles = 10;
 	} else {
 		set_register( GET_DST, ( get_register( GET_DST ) + 1 ) & 0xFF );
 		check = get_register( GET_DST ) & 0xFF;
-		cycles += 5;
+		cycles = 5;
 	}
 
 	set_all_flags(
@@ -721,11 +749,11 @@ void i8080::DCR( void ) {
 			read_byte( get_register( RP_HL ) ) - 1
 		);
 		check = read_byte( get_register( RP_HL ) );
-		cycles += 10;
+		cycles = 10;
 	} else {
 		set_register( GET_DST, ( get_register( GET_DST ) - 1 ) & 0xFF );
 		check = get_register( GET_DST ) & 0xFF;
-		cycles += 5;
+		cycles = 5;
 	}
 
 	set_all_flags(
@@ -740,10 +768,10 @@ void i8080::DCR( void ) {
 void i8080::MVI( void ) {
 	if ( opcode == 0x36 ) {
 		write_byte( get_register( RP_HL ), fetch_byte() );
-		cycles += 10;
+		cycles = 10;
 	} else {
 		set_register( GET_DST, fetch_byte() );
-		cycles += 7;
+		cycles = 7;
 	}
 }
 
@@ -757,7 +785,7 @@ void i8080::RLC( void ) {
 	}
 
 	set_register( RG_A, tmp );
-	cycles += 4;
+	cycles = 4;
 }
 
 
@@ -770,7 +798,7 @@ void i8080::RAL( void ) {
 		A |= 0x01;
 	}
 
-	cycles += 4;
+	cycles = 4;
 }
 
 void i8080::DAA( void ) {
@@ -792,12 +820,12 @@ void i8080::DAA( void ) {
 	A = internal_add( A, correction, false );
 	set_flag( F_C, cy );
 
-	cycles += 4;
+	cycles = 4;
 }
 
 void i8080::STC( void ) {
 	set_flag( F_C, true );
-	cycles += 4;
+	cycles = 4;
 }
 
 void i8080::DAD( void ) {
@@ -808,7 +836,7 @@ void i8080::DAD( void ) {
 
 	set_flag( F_C, res > 0x0000FFFF );
 
-	cycles += 10;
+	cycles = 10;
 }
 
 void i8080::RRC( void ) {
@@ -821,7 +849,7 @@ void i8080::RRC( void ) {
 	}
 
 	set_register( RG_A, tmp );
-	cycles += 4;
+	cycles = 4;
 }
 
 void i8080::RAR( void ) {
@@ -835,17 +863,17 @@ void i8080::RAR( void ) {
 	}
 
 	set_register( RG_A, tmp );
-	cycles += 4;
+	cycles = 4;
 }
 
 void i8080::CMA( void ) {
 	set_register( RG_A, ~get_register( RG_A ) );
-	cycles += 4;
+	cycles = 4;
 }
 
 void i8080::CMC( void ) {
 	set_flag( F_C, !get_flag( F_C ) );
-	cycles += 4;
+	cycles = 4;
 }
 
 // 0x40 -> 0x7F
@@ -860,7 +888,7 @@ void i8080::MOV( void ) {
 		case 0x6E:
 		case 0x7E:
 			set_register( GET_DST, read_byte( get_register( RP_HL ) ) );
-			cycles += 7;
+			cycles = 7;
 			break;
 
 		// R -> M
@@ -872,20 +900,20 @@ void i8080::MOV( void ) {
 		case 0x75:
 		case 0x77:
 			write_byte( get_register( RP_HL ), get_register( GET_SRC ) & 0xFF );
-			cycles += 7;
+			cycles = 7;
 			break;
 		
 		// R -> R
 		default: 
 			set_register( GET_DST, get_register( GET_SRC ) ); 
-			cycles += 5;
+			cycles = 5;
 			break;
 	}
 }
 
 void i8080::HLT( void ) {
 	halted = true;
-	cycles += 7;
+	cycles = 7;
 }
 
 // 0x80 -> 0xBF
@@ -894,10 +922,10 @@ void i8080::ADD( void ) {
 
 	if ( opcode == 0x86 ) {
 		to_add = read_byte( get_register( RP_HL ) );
-		cycles += 7;
+		cycles = 7;
 	} else {
 		to_add = get_register( GET_SRC ) & 0xFF ;
-		cycles += 4;
+		cycles = 4;
 	}
 
 	A = internal_add( A, to_add, false );
@@ -909,10 +937,10 @@ void i8080::ADC( void ) {
 
 	if ( opcode == 0x8E ) {
 		to_add = read_byte( get_register( RP_HL ) );
-		cycles += 7;
+		cycles = 7;
 	} else {
 		to_add = get_register( GET_SRC ) & 0xFF ;
-		cycles += 4;
+		cycles = 4;
 	}
 
 	A = internal_add( A, to_add, get_flag( F_C ) );
@@ -924,10 +952,10 @@ void i8080::SUB( void ) {
 
 	if ( opcode == 0x96 ) {
 		to_add = read_byte( get_register( RP_HL ) );
-		cycles += 7;
+		cycles = 7;
 	} else {
 		to_add = get_register( GET_SRC ) & 0xFF ;
-		cycles += 4;
+		cycles = 4;
 	}
 
 	A = internal_add( A, ~( to_add ), true);
@@ -939,10 +967,10 @@ void i8080::SBC( void ) {
 
 	if ( opcode == 0x9E ) {
 		to_add = read_byte( get_register( RP_HL ) );
-		cycles += 7;
+		cycles = 7;
 	} else {
 		to_add = get_register( GET_SRC ) & 0xFF ;
-		cycles += 4;
+		cycles = 4;
 	}
 
 	A = internal_add( A, ~( to_add ), !get_flag( F_C ) );
@@ -955,10 +983,10 @@ void i8080::ANA( void ) {
 
 	if ( opcode == 0xA6 ) {
 		op = read_byte( get_register( RP_HL ) );
-		cycles += 7;
+		cycles = 7;
 	} else {
 		op = get_register( GET_SRC ) & 0xFF ;
-		cycles += 4;
+		cycles = 4;
 	}
 
 	res = A & op;
@@ -980,10 +1008,10 @@ void i8080::XRA( void ) {
 
 	if ( opcode == 0xAE ) {
 		op = read_byte( get_register( RP_HL ) );
-		cycles += 7;
+		cycles = 7;
 	} else {
 		op = get_register( GET_SRC ) & 0xFF ;
-		cycles += 4;
+		cycles = 4;
 	}
 
 	A = A ^ op;
@@ -1003,10 +1031,10 @@ void i8080::ORA( void ) {
 
 	if ( opcode == 0xB6 ) {
 		op = read_byte( get_register( RP_HL ) );
-		cycles += 7;
+		cycles = 7;
 	} else {
 		op = get_register( GET_SRC ) & 0xFF ;
-		cycles += 4;
+		cycles = 4;
 	}
 
 	A = A | op;
@@ -1027,10 +1055,10 @@ void i8080::CMP( void ) {
 
 	if ( opcode == 0xBE ) {
 		op = read_byte( get_register( RP_HL ) );
-		cycles += 7;
+		cycles = 7;
 	} else {
 		op = get_register( GET_SRC ) & 0xFF ;
-		cycles += 4;
+		cycles = 4;
 	}
 
 	res = A - op;
@@ -1050,18 +1078,18 @@ void i8080::RET( void ) {
 	if ( parse_cond() ) {
 		PC = pop_from_stack();
 		if ( GET_COND == CN_NONE ) {
-			cycles += 10;
+			cycles = 10;
 		} else {
-			cycles += 11;
+			cycles = 11;
 		}
 	} else {
-		cycles += 5;
+		cycles = 5;
 	}
 }
 
 void i8080::POP( void ) {
 	set_register( GET_DST, pop_from_stack() );
-	cycles += 10;
+	cycles = 10;
 }
 
 void i8080::JMP( void ) {
@@ -1071,51 +1099,51 @@ void i8080::JMP( void ) {
 		PC += 2;
 	}
 
-	cycles += 10;
+	cycles = 10;
 }
 
 void i8080::CALL( void ) {
 	if ( parse_cond() ) {
 		push_to_stack( PC + 2 );
 		PC = read_word( PC );
-		cycles += 17;
+		cycles = 17;
 	} else {
 		PC += 2;
-		cycles += 11;
+		cycles = 11;
 	}
 }
 
 void i8080::PUSH( void ) {
 	push_to_stack( get_register( GET_SRC ) );
-	cycles += 11;
+	cycles = 11;
 }
 
 void i8080::ADI( void ) {
 	A = internal_add( A, fetch_byte(), false );
-	cycles += 7;
+	cycles = 7;
 }
 
 void i8080::ACI( void ) {
 	A = internal_add( A, fetch_byte(), get_flag(F_C));
-	cycles += 7;
+	cycles = 7;
 }
 
 void i8080::SUI( void ) {
 	A = internal_add( A, ~( fetch_byte() ), true );
 	set_flag( F_C, !get_flag( F_C ) );	// Flip carry flag for SUB operations
-	cycles += 7;
+	cycles = 7;
 }
 
 void i8080::SBI( void ) {
 	A = internal_add( A, ~( fetch_byte() ), !get_flag( F_C ) );
 	set_flag( F_C, !get_flag( F_C ) );	// Flip carry flag for SUB operations
-	cycles += 7;
+	cycles = 7;
 }
 
 void i8080::ANI( void ) {
 	uint8_t res = 0x00;
 	uint8_t op = fetch_byte();
-	cycles += 7;
+	cycles = 7;
 
 	res = A & op;
 
@@ -1133,7 +1161,7 @@ void i8080::ANI( void ) {
 
 void i8080::XRI( void ) {
 	uint8_t op = fetch_byte();
-	cycles += 7;
+	cycles = 7;
 
 	A = A ^ op;
 
@@ -1149,7 +1177,7 @@ void i8080::XRI( void ) {
 
 void i8080::ORI( void ) {
 	uint8_t op = fetch_byte();
-	cycles += 7;
+	cycles = 7;
 
 	A = A | op;
 
@@ -1166,7 +1194,7 @@ void i8080::ORI( void ) {
 void i8080::CPI( void ) {
 	uint8_t op = fetch_byte();
 	uint16_t res = 0x00;
-	cycles += 7;
+	cycles = 7;
 
 	res = A - op;
 
@@ -1191,35 +1219,73 @@ void i8080::RST( void ) {
 		case 0xFF: push_to_stack( PC ); PC = 0x0038; break; // RST 7 -> $0038
 		default: UNI(); break;
 	}
-	cycles += 11;
+	cycles = 11;
 }
 
 void i8080::OUT( void ) {
 	uint8_t port = fetch_byte();
 
-	if ( port == 0x00 ) {
-		//Logger::Log( "OUT, port 0 called: program halted!" );
-		halted = true;
-	} else if ( port == 1 ) {
-		if ( C == 2 ) {
-			printf( "%c", E );
-		} else if ( C == 9 ) {
-			uint16_t addr = ( D << 8 ) | E;
-			do {
-				printf( "%c", read_byte( addr ) );
-				addr++;
-			} while ( read_byte( addr ) != '$' );
-		}
+	switch ( port ) {
+		case 0x00: 
+			//Logger::Log( "OUT, port 0 called: program halted!" );
+			halted = true;
+			break;
+
+		case 0x01:
+			if ( C == 2 ) {
+				printf( "%c", E );
+			} else if ( C == 9 ) {
+				uint16_t addr = ( D << 8 ) | E;
+				do {
+					printf( "%c", read_byte( addr ) );
+					addr++;
+				} while ( read_byte( addr ) != '$' );
+			}
+			break;
+
+		case 0x02:
+			SHIFT_AMNT = A & 0x07;
+			break;
+
+		case 0x03:
+			// SOUND STUFF
+			break;
+
+		case 0x04:
+			SHIFT_LO = SHIFT_HI;
+			SHIFT_HI = A;
+			break;
+
+		case 0x05:
+			// SOUND STUFF
+			break;
+
+		case 0x06:
+			// DBG STUFF
+			break;
+
+		default: break;
 	}
 
-	cycles += 10;
+	cycles = 10;
 }
 
 void i8080::IN( void ) {
-	// TODO
+	
+	uint8_t port = fetch_byte();
+	uint16_t val = 0x0000;
 
-	PC += 1;
-	cycles += 10;
+	switch ( port ) {
+		case 0x01: A = INP1; break;
+		case 0x02: A = INP2; break;
+		case 0x03: 
+			val = ( SHIFT_HI << 8 ) | SHIFT_LO;
+			A = ( ( val >> ( 8 - SHIFT_AMNT ) ) & 0xFF ); 
+			break;
+		default: break;
+	}
+	
+	cycles = 10;
 }
 
 void i8080::XTHL( void ) {
@@ -1230,32 +1296,32 @@ void i8080::XTHL( void ) {
 	write_byte( SP + 1, get_register( RG_H ) & 0xFF );
 
 	set_register( RP_HL, old_h, old_l );
-	cycles += 18;
+	cycles = 18;
 }
 
 void i8080::PCHL( void ) {
 	PC = get_register( RP_HL );
-	cycles += 5;
+	cycles = 5;
 }
 
 void i8080::XCHG( void ) {
 	uint16_t old_hl = get_register( RP_HL );
 	set_register( RP_HL, get_register( RP_DE ) );
 	set_register( RP_DE, old_hl );
-	cycles += 4;
+	cycles = 4;
 }
 
 void i8080::DI( void ) {
 	interrupt_enabled = false;
-	cycles += 4;
+	cycles = 4;
 }
 
 void i8080::EI( void ) {
 	interrupt_enabled = true;
-	cycles += 4;
+	cycles = 4;
 }
 
 void i8080::SPHL( void ) {
 	set_register( RP_SP, get_register( RP_HL ) );
-	cycles += 5;
+	cycles = 5;
 }

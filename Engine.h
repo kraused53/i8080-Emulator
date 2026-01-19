@@ -24,7 +24,10 @@ private:
 	// Emulation Variables
 	bool initialized;
 	bool running;
+	bool half_screen_interrupt;
+	bool frame_finished;
 	int msec_prev_frame;
+	unsigned int cycles_elapsed;
 
 public:
 	// Constructors
@@ -44,5 +47,7 @@ public:
 	void render( void );
 
 	bool is_initialized( void ) const { return initialized; }
+
+	void debug( void );
 };
 

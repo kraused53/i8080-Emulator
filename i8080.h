@@ -28,6 +28,17 @@ public:
 	uint16_t PC;
 	uint16_t SP;
 
+	// IO Ports
+	uint8_t INP1;
+	uint8_t INP2;
+	uint8_t SHIFT_LO;
+	uint8_t SHIFT_HI;
+	uint8_t SHIFT_AMNT;
+	uint8_t SOUND1;
+	uint8_t SHIFT_DATA;
+	uint8_t SOUND2;
+	uint8_t WATCHDOG;
+
 	// Emulation values
 	bool halted;
 	bool error;
@@ -76,6 +87,11 @@ public:
 		F_C = 0x01  // Carry Flag
 	};
 
+	enum INTERRUPT_ID {
+		MSI,	// Mid-Screen Interrupt
+		ESI		// End-Screen Interrupt
+	};
+
 	// Memory
 	std::vector<uint8_t> memory;
 	void clear_memory( void );
@@ -100,6 +116,7 @@ public:
 	
 	// Emulation
 	void step( void );
+	void interrupt( INTERRUPT_ID id );
 	void reset( void );
 	void log( void );
 	bool load_rom( const char* path, uint16_t offset );
