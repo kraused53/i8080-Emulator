@@ -1,7 +1,7 @@
 # A Simple i8080 Emulator
 ---
 
-https://github.com/kraused53/i8080-Emulator/blob/master/images/TitleScreenMovie.mp4
+<img src="./images/TitleScreenMovie.gif" width="448">
 
 This is an emulator I am writting in C++ to emulate the Intel 8080 CPU. 
 This project is as an update for an older 8080 emulator I wrote before I was a CS student.
